@@ -64,13 +64,14 @@
                             <p>
                                 <strong>Total Price: </strong>
                             </p>
-                            <p>
-                                <strong>Received Price: </strong>
-                            </p>
-							<p>
-                                <strong>Change Amount: </strong>
-                            </p>
+
 							</td>
+                             <td>
+                            <p>
+                                <strong><i class="fa fa-inr"></i>{{$total_price}}</strong>
+                            </p>
+                             </td>
+
 
                         </tr>
 
