@@ -40,7 +40,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'category' => 'required',
             'name' => 'required',
             'description' => 'required',
@@ -49,17 +49,15 @@ class ItemController extends Controller
         ]);
         $image = $request->file('image');
         $slug = str_slug($request->name);
-        if (isset($image))
-        {
+        if (isset($image)) {
             $currentDate = Carbon::now()->toDateString();
-            $imagename = $slug.'-'.$currentDate.'-'. uniqid() .'.'. $image->getClientOriginalExtension();
+            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
 
-            if (!file_exists('uploads/item'))
-            {
-                mkdir('uploads/item',0777,true);
+            if (!file_exists('uploads/item')) {
+                mkdir('uploads/item', 0777, true);
             }
-            $image->move('uploads/item',$imagename);
-        }else{
+            $image->move('uploads/item', $imagename);
+        } else {
             $imagename = "default.png";
         }
         $item = new Item();
@@ -69,7 +67,7 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->image = $imagename;
         $item->save();
-        return redirect()->route('item.index')->with('successMsg','Item Successfully Saved');
+        return redirect()->route('item.index')->with('successMsg', 'Item Successfully Saved');
     }
 
     /**
@@ -93,7 +91,7 @@ class ItemController extends Controller
     {
         $categories = Category::all();
         $item = Item::find($id);
-        return view('admin.item.edit', compact('item','categories'));
+        return view('admin.item.edit', compact('item', 'categories'));
     }
 
     /**
@@ -105,7 +103,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'category' => 'required',
             'name' => 'required',
             'description' => 'required',
@@ -115,17 +113,15 @@ class ItemController extends Controller
         $image = $request->file('image');
         $slug = str_slug($request->name);
         $item = Item::find($id);
-        if (isset($image))
-        {
+        if (isset($image)) {
             $currentDate = Carbon::now()->toDateString();
-            $imagename = $slug.'-'.$currentDate.'-'. uniqid() .'.'. $image->getClientOriginalExtension();
+            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
 
-            if (!file_exists('uploads/item'))
-            {
-                mkdir('uploads/item',0777,true);
+            if (!file_exists('uploads/item')) {
+                mkdir('uploads/item', 0777, true);
             }
-            $image->move('uploads/item',$imagename);
-        }else{
+            $image->move('uploads/item', $imagename);
+        } else {
             $imagename = $item->image;
         }
         $item->category_id = $request->category;
@@ -134,7 +130,7 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->image = $imagename;
         $item->save();
-        return redirect()->route('item.index')->with('successMsg','Item Successfully Updated');
+        return redirect()->route('item.index')->with('successMsg', 'Item Successfully Updated');
     }
 
     /**
@@ -146,10 +142,22 @@ class ItemController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
-        if(file_exists('uploads/item/'.$item->image)){
-            unlink('uploads/item/'.$item->image);
+        if (file_exists('uploads/item/' . $item->image)) {
+            unlink('uploads/item/' . $item->image);
         }
         $item->delete();
-        return redirect()->back()->with('successMsg','Item successfully deleted');
+        return redirect()->back()->with('successMsg', 'Item successfully deleted');
     }
+
+
+    // public function getItems(Request $request)
+    // {
+    //     try {
+    //         $items = Item::all();
+    //         return response()->json(['success' => true, 'msg' => "Questions data!", "data" => $items]);
+
+    //     } catch (\Exception $e) {
+    //         return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+    //     }
+    // }
 }

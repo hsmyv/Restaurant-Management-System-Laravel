@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Item;
+use App\Order;
 use App\Place;
 use Illuminate\Http\Request;
 
@@ -9,8 +12,10 @@ class PlaceController extends Controller
 {
     public function show($id)
     {
+        $totalPrice = Order::where('place_id', $id)->sum('price');
         $place = Place::findOrFail($id);
-        return view('admin.place.index', ['place' => $place]);
+        $categories = Category::all();
+        return view('admin.place.index', ['place' => $place, 'categories' => $categories, 'total_price' => $totalPrice]);
     }
 
     public function create()

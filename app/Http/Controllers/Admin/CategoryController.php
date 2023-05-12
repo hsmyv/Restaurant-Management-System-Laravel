@@ -38,10 +38,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
          $this->validate($request, [
-           
+
             'name'=>'required'
         ]);
-         
+
          $category = new Category;
         $category ->name = $request->name;
         $category->slug = str_slug($request->name);
@@ -82,7 +82,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
          $this->validate($request, [
-           
+
             'name'=>'required'
         ]);
          $category = Category::find($id);
@@ -90,7 +90,7 @@ class CategoryController extends Controller
         $category->slug = str_slug($request->name);
         $category->save();
         return redirect()->route('category.index')->with('successMsg','Category successfully updated.');
-   
+
     }
 
     /**
@@ -103,5 +103,15 @@ class CategoryController extends Controller
     {
        Category::find($id)->delete();
        return redirect()->back()->with('successMsg','Category Successfully Delete');
+    }
+
+    public function getCategories(Request $request)
+    {
+        try {
+            $categories = Category::all();
+            return response()->json(['success' => true, 'msg' => "Questions data!", "data" => $categories]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 }
