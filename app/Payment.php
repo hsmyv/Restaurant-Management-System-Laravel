@@ -11,7 +11,14 @@ class Payment extends Model
 
     protected $fillable = [
         'place_id',
+        'total_price',
         'received_price',
         'change',
     ];
+
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
+
 }

@@ -10,6 +10,8 @@
         <title>@yield('title')</title>
 
         <!-- Styles -->
+        <link href="{{ asset('frontend/css/receipt.css') }}" rel="stylesheet" />
+
         <!-- Bootstrap core CSS     -->
         <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet" />
         <!--  Material Dashboard CSS    -->
@@ -60,7 +62,7 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="{{ asset('backend/js/demo.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        
+
         @stack('scripts')
 
 

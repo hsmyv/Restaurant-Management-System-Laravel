@@ -39,12 +39,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
     Route::get('room', [RoomController::class, 'index'])->name('room.index');
     Route::get('room/{id}', [RoomController::class, 'show'])->name('room.show');
-    Route::get('room/create', [RoomController::class, 'create'])->name('room.create');
+    Route::get('room/create/new', [RoomController::class, 'create'])->name('room.create');
     Route::post('room/create', [RoomController::class, 'store'])->name('room.store');
 
 
     Route::get('place/{id}', [PlaceController::class, 'show'])->name('place.show');
-    Route::get('place/create', [PlaceController::class, 'create'])->name('place.create');
+    Route::get('place/{id}/receipt', [OrderController::class, 'receiptShow'])->name('receipt.show');
+    Route::get('place/create/new', [PlaceController::class, 'create'])->name('place.create');
     Route::post('place/create', [PlaceController::class, 'store'])->name('place.store');
 
     Route::get('contact', 'ContactController@index')->name('contact.index');
@@ -56,5 +57,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('allcategories', [CategoryController::class, 'getCategories'])->name('getCategories');
     Route::post('addorder', [OrderController::class, 'addOrder'])->name('addOrder');
     Route::post('calculatePrice', [OrderController::class, 'calculatePrice'])->name('calculatePrice');
-
 });

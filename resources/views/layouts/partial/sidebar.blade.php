@@ -23,12 +23,12 @@
               <p>Room</p>
             </a>
           </li>
-          <li class="{{Request::is('admin/slider*') ? 'active': '' }}">
+          {{-- <li class="{{Request::is('admin/slider*') ? 'active': '' }}">
             <a class="nav-link" href="{{route('slider.index')}}">
               <i class="material-icons">slideshow</i>
               <p>Sliders</p>
             </a>
-          </li>
+          </li> --}}
           <li class="{{Request::is('admin/category*') ? 'active': '' }} ">
             <a class="nav-link" href="{{ route('category.index') }}">
               <i class="material-icons">content_paste</i>

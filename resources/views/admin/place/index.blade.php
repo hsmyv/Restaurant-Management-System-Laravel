@@ -11,8 +11,10 @@
 @section('content')
 
     <div class="content">
-        <a class="btn btn-success" data-toggle="modal" data-target="#addItemModal">Add New</a>
+        <a class="btn btn-success" data-toggle="modal" data-target="#addItemModal">Add Guests</a>
         <a class="btn btn-success" data-toggle="modal" data-target="#calculate">Calculate</a>
+        <a href="{{route('receipt.show', $place->id)}}" class="btn btn-success">Receipts</a>
+
         <div class="container-fluid">
             <div class="row">
 
@@ -24,11 +26,11 @@
                             </div>
                         </div>
 
-                        <h3 class="card-title"><a href="" style="color: white">{{ $place->name }}th place</a>
+                        <h3 class="card-title"><a href="" style="color: white"></a>
                         </h3>
                         <div class="card-footer">
                             <div class="stats">
-                                <a style="color: white;">{{$total_price}}</a>
+                                <a style="color: white;">Order Price - {{$total_price}}</a>
                             </div>
                         </div>
                     </div>
@@ -36,6 +38,50 @@
 
             </div>
         </div>
+
+            <div class="col-md-12">
+ <div class="row">
+        <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($orders as $order)
+                            <tr>
+                            <td class="col-md-9">{{$order->name ?? ''}}</td>
+                            <td class="col-md-3"><i class="fa fa-inr"></i> {{$order->price ?? ''}}</td>
+                            </tr>
+                        @endforeach
+
+                        <tr>
+                            <td class="text-right">
+                            <p>
+                                <strong>Total Price: </strong>
+                            </p>
+                            <p>
+                                <strong>Received Price: </strong>
+                            </p>
+							<p>
+                                <strong>Change Amount: </strong>
+                            </p>
+							</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+	</div>
+
+</div>
     </div>
 
     <!-- Modal -->
@@ -46,7 +92,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Guests</h5>
 
-                    <button id="addItem" class="ml-5 btn btn-info">Add Item</button>
+                    <button id="addItem" class="ml-5 btn btn-info">Add Guest</button>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -85,7 +131,7 @@
                         <br><br>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add Exam</button>
+                            <button type="submit" class="btn btn-primary">Calculate</button>
                         </div>
                     </div>
                 </form>
@@ -130,8 +176,8 @@
             $("#addItem").click(function(){
                  var html = '';
                                 html = `
-                                <a>Guest</a>
-                                    <div class="row mt-2 answers">
+                                    <div class="row mt-1">
+                                           <h4>Guest</h4>
                                         <div class="col">
                                              <select name="items[]" id="items" required class="form-control" multiple='mutliple'>
                                                     @foreach ($categories as $category) {
@@ -149,6 +195,10 @@
 
                             $(".addModalItems").append(html);
                         });
+              $(document).on("click", ".removeButton", function() {
+                $(this).parent().remove();
+            });
+
         });
     </script>
 @endpush
