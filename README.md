@@ -1,4 +1,5 @@
 # Restaurant-Management-System-Laravel
+A Restaurant Management System (RMS) is a software solution designed to streamline and simplify various aspects of running a restaurant or food establishment. It covers a wide range of functions and tasks to enhance operational efficiency, improve customer service, and optimize business processes.
 Dashboard
 
 ![Capture](https://github.com/hsmyv/Restaurant-Management-System-Laravel/assets/111653544/810c6f55-77aa-45f4-ac42-8918d2b12ec3)
